@@ -5,6 +5,7 @@ Created on Mon May  3 20:28:22 2021
 @author: Lenovo
 """
 from mysql.connector import pooling
+from mysql.connector import Error
 # import mariadb
 import os,sys
 
@@ -14,10 +15,10 @@ from config.Settings import Settings
 # DATABASE='furniture'
 # USER='root'
 # PASSWORD=''
-HOST=os.environ['HOST']
-DATABASE=os.environ['DATABASE']
-USER=os.environ['USERNAME']
-PASSWORD=os.environ['PASSWORD']
+# HOST=os.environ['HOST']
+# DATABASE=os.environ['DATABASE']
+# USER=os.environ['USERNAME']
+# PASSWORD=os.environ['PASSWORD']
 # HOST=os.environ['HOST2']
 # DATABASE=os.environ['DATABASE2']
 # USER=os.environ['USERNAME2']
@@ -36,7 +37,7 @@ class DatabasePool:
             password = Settings.password,
             database= Settings.database
         )
-    except pooling.Error as e:
+    except Error as e:
         print(f"Error connecting to MySQL Platform: {e}")
         sys.exit(1)
     
