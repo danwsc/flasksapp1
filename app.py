@@ -1,8 +1,22 @@
 from flask import Flask,jsonify
 from mysql.connector import pooling
-from config.Settings import Settings
+# from config.Settings import Settings
 
 import os
+
+# HOST='localhost'
+# DATABASE='furniture'
+# USER='root'
+# PASSWORD=''
+HOST=os.environ['HOST']
+DATABASE=os.environ['DATABASE']
+USER=os.environ['USERNAME']
+PASSWORD=os.environ['PASSWORD']
+# HOST=os.environ['HOST2']
+# DATABASE=os.environ['DATABASE2']
+# USER=os.environ['USERNAME2']
+# PASSWORD=os.environ['PASSWORD2']
+
 app = Flask(__name__)
 
 
@@ -15,19 +29,12 @@ def validate():
 
 @app.route('/users')
 def validate2():
-    host='localhost'
-    database='furniture'
-    user='root'
-    password='Singapore1'
-    host=os.environ['HOST2']
-    database=os.environ['DATABASE2']
-    user=os.environ['USERNAME2']
-    password=os.environ['PASSWORD2']
-    host=os.environ['HOST']
-    database=os.environ['DATABASE']
-    user=os.environ['USERNAME']
-    password=os.environ['PASSWORD']
-    print("host2",host)
+    # print(Settings.host)
+    host=HOST
+    database=DATABASE
+    user=USER
+    password=PASSWORD
+    # print("host2",host)
     connection_pool = pooling.MySQLConnectionPool(pool_name="ws_pool",
                                                   pool_size=5,
                                                   host=host,
@@ -47,32 +54,16 @@ def validate2():
         print(err)
         return {},500
 
-    # dbConn.close()
-    # host='localhost'
-    # database='furniture'
-    # user='root'
-    # password='Singapore1'
-
-    #Production
-    # host=os.environ['HOST2']
-    # database=os.environ['DATABASE2']
-    # user=os.environ['USERNAME2']
-    # password=os.environ['PASSWORD2']
+    dbConn.close()
    
     return "users"    
 
-
-
 @app.route('/settings')
 def Settings():
-    # host='localhost'
-    # database='furniture'
-    # user='root'
-    # password='Singapore1'
-    host=os.environ['HOST2']
-    database=os.environ['DATABASE2']
-    user=os.environ['USERNAME2']
-    password=os.environ['PASSWORD2']
+    host=HOST
+    database=DATABASE
+    user=USER
+    password=PASSWORD
     settings={"host":host,"username":user,"database":database}
     return jsonify(settings)
     
